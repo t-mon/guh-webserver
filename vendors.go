@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/codegangsta/martini-contrib/render"
 	"github.com/go-martini/martini"
 	"github.com/guh/guh.go"
+	"github.com/martini-contrib/render"
 )
 
 // DefineVendorEndPoints defines all routes related to vendors
