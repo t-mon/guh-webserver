@@ -1,18 +1,10 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/codegangsta/martini-contrib/binding"
-	"github.com/codegangsta/martini-contrib/render"
 	"github.com/go-martini/martini"
 	"github.com/guh/guh.go"
+	"github.com/martini-contrib/render"
 )
-
-type NewDeviceForm struct {
-	Data map[string]interface{} `form:"device"`
-	Test string                 `form:"test"`
-}
 
 // DefineDeviceEndPoints defines all routes related to devices
 func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
@@ -46,11 +38,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	})
 
 	// Creates a new device
-	m.Post("/api/v1/devices.json", binding.Form(make(map[string]interface{})), func(newDevice map[string]interface{}, r render.Render, params martini.Params) {
-
-		fmt.Println("params:", newDevice)
-		r.JSON(200, "{}")
-
+	m.Post("/api/v1/devices.json", func(r render.Render, params martini.Params) {
 		// deviceClassID := params["device"]["deviceClassId"]
 		// delete(params["device"], "deviceClassId")
 		//

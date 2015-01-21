@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/codegangsta/martini-contrib/render"
 	"github.com/go-martini/martini"
 	"github.com/guh/guh.go"
+	"github.com/martini-contrib/render"
 )
 
 func main() {
