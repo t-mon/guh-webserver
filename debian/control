@@ -1,0 +1,13 @@
+Source: guh-webserver
+Maintainer: Simon Stürz <simon.stuerz@guh.guru>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9), golang-go
+Homepage: https://github.com/guh/guh-webserver
+
+Package: guh-webserver
+Architecture: amd64 i386 armel armhf
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: guh-webserver
+ The guh REST-API and webserver for the guh-webinterface

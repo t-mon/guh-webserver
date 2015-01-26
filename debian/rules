@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+export DH_OPTIONS
+
+export DH_GOPKG := github.com/guh/guh-guhwebserver
+
+# export DH_GOLANG_INSTALL_ALL := 1
+
+export GOPATH := $(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)
+
+
+override_dh_auto_build:
+	go get github.com/go-martini/martini
+	go get github.com/martini-contrib/render
+	go get github.com/guh/guh-libgo
+
+	dh_auto_build
+
+%:
+	dh $@ --buildsystem=golang --with=golang	
