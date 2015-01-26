@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/go-martini/martini"
-	"github.com/guh/guh.go"
+	"github.com/guh/guh-libgo"
 	"github.com/martini-contrib/render"
 )
 
