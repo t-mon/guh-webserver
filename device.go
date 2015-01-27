@@ -30,7 +30,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 			r.JSON(500, err)
 		} else {
 			if foundDevice == "" {
-				r.JSON(404, "{}")
+				r.JSON(404, make(map[string]interface{}))
 			} else {
 				r.JSON(200, foundDevice)
 			}
@@ -55,7 +55,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 			r.JSON(500, err)
 		} else {
 			if deletedDevice == "" {
-				r.JSON(404, "{}")
+				r.JSON(404, make(map[string]interface{}))
 			} else {
 				r.JSON(200, deletedDevice)
 			}

@@ -30,7 +30,7 @@ func DefineVendorEndPoints(m *martini.ClassicMartini, config guh.Config) {
 			r.JSON(500, err)
 		} else {
 			if foundVendor == "" {
-				r.JSON(404, "{}")
+				r.JSON(404, make(map[string]interface{}))
 			} else {
 				r.JSON(200, foundVendor)
 			}
