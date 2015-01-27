@@ -21,3 +21,11 @@ You may configure the process with the following `ENV` variables:
 For example:
 
     GUH_IP=10.0.0.11 GUH_PORT=12345 IP=127.0.0.1 PORT=80 ./guh_rest
+
+### License & Copyright
+
+// Copyright (C) 2015 guh
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
