@@ -24,8 +24,7 @@ For example:
 
 ### License & Copyright
 
-// Copyright (C) 2015 guh
-//
-// This software may be modified and distributed under the terms
-// of the MIT license. See the LICENSE file for details.
+Copyright (c) 2015 guh
+
+This software may be modified and distributed under the terms of the MIT license. See the LICENSE file for details.
 
