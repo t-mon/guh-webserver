@@ -6,6 +6,9 @@
 package main
 
 import (
+	"encoding/json"
+	"net/http"
+
 	"github.com/go-martini/martini"
 	"github.com/guh/guh-libgo"
 	"github.com/martini-contrib/render"
@@ -34,7 +37,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		if err != nil {
 			r.JSON(500, err)
 		} else {
-			if foundDevice == "" {
+			if foundDevice == nil {
 				r.JSON(404, make(map[string]interface{}))
 			} else {
 				r.JSON(200, foundDevice)
@@ -43,7 +46,31 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	})
 
 	// Creates a new device
-	m.Post("/api/v1/devices.json", func(r render.Render, params martini.Params) {
+	// TODO maybe split this up in several endpoints to prevent errors where
+	// devices support multiple conflicting createMethods
+	m.Post("/api/v1/devices.json", func(r render.Render, params martini.Params, request *http.Request) {
+
+		decoder := json.NewDecoder(request.Body)
+		var requestBody map[string]interface{}
+		err := decoder.Decode(&requestBody)
+
+		device := requestBody["device"].(map[string]interface{})
+
+		deviceClassID := device["deviceClassId"].(string)
+		delete(device, "deviceClassId")
+
+		deviceDescriptorID := device["deviceDescriptorId"].(string)
+		delete(device, "deviceDescriptorID")
+
+		deviceService := guh.NewDevice(config)
+		deviceService.Add(deviceClassID, deviceDescriptorID, device["deviceParams"].([]interface{}))
+
+		if err != nil {
+			r.JSON(500, err)
+		} else {
+			r.JSON(200, make(map[string]interface{}))
+		}
+
 		// deviceClassID := params["device"]["deviceClassId"]
 		// delete(params["device"], "deviceClassId")
 		//

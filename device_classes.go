@@ -6,6 +6,9 @@
 package main
 
 import (
+	"encoding/json"
+	"net/http"
+
 	"github.com/go-martini/martini"
 	"github.com/guh/guh-libgo"
 	"github.com/martini-contrib/render"
@@ -36,6 +39,23 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 			r.JSON(500, err)
 		} else {
 			r.JSON(200, foundDeviceClass)
+		}
+	})
+
+	// Returns a list of all discovered devices
+	m.Get("/api/v1/device_classes/:device_class_id/discover.json", func(r render.Render, params martini.Params, request *http.Request) {
+
+		deviceClass := guh.NewDeviceClass(config)
+
+		var discoveryParams []interface{}
+		err := json.Unmarshal([]byte(request.FormValue("discovery_params")), &discoveryParams)
+
+		discoveredDevices, err := deviceClass.Discover(params["device_class_id"], discoveryParams)
+
+		if err != nil {
+			r.JSON(500, err)
+		} else {
+			r.JSON(200, discoveredDevices["deviceDescriptors"])
 		}
 	})
 
