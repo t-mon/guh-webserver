@@ -24,7 +24,7 @@ You may configure the process with the following flags:
 
 For example:
 
-    ./guh-webserver
+    ./guh-webserver --guh_port=192.168.0.2 --guh_port=80
 
 Here is an example for `guh-webserver.conf`:
 
@@ -32,7 +32,7 @@ Here is an example for `guh-webserver.conf`:
     Port = 3000
     GuhIP = "192.168.0.3"
     GuhPort = 1234
-    StaticFolder = "/Users/christoph/Desktop/guh-webinterface"
+    StaticFolder = "/my/custom/webserver.conf"
 
 ### License & Copyright
 
@@ -43,9 +43,8 @@ This software may be modified and distributed under the terms of the MIT license
 ### TODO
 
  - [ ] Properly handle deviceErrors etc. in responses
+ - [ ] Refactor code to use something like "RegisterEndPoint()" to be able to autogenerate meta information (required params, relationship to guh core, etc.) about the API
  - [x] Convert ENV params to real command line params
    - [x] Params for guh-ip, guh-port, config-path, port
- - [ ] Create a config file in etc (/etc/guh/guh-webserver.conf)
  - [x] Serve static files from configurable directory (http://stackoverflow.com/a/14187941/641032)
- - [ ] Refactor code to use something like "RegisterEndPoint()" to be able to autogenerate meta information (required params, relationship to guh core, etc.) about the API
 
