@@ -35,4 +35,5 @@ This software may be modified and distributed under the terms of the MIT license
    - [ ] Params for guh-ip, guh-port, config-path, port
  - [ ] Create a config file in etc (/etc/guh/guh-webserver.conf)
  - [ ] Serve static files from configurable directory (http://stackoverflow.com/a/14187941/641032)
+ - [ ] Refactor code to use something like "RegisterEndPoint()" to be able to autogenerate meta information (required params, relationship to guh core, etc.) about the API
 

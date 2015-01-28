@@ -59,8 +59,12 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		deviceClassID := device["deviceClassId"].(string)
 		delete(device, "deviceClassId")
 
-		deviceDescriptorID := device["deviceDescriptorId"].(string)
-		delete(device, "deviceDescriptorID")
+		// Check if there is a deviceDescriptorID in the POST body
+		var deviceDescriptorID string
+		var ok bool
+		if deviceDescriptorID, ok = device["deviceDescriptorId"].(string); ok {
+			delete(device, "deviceDescriptorID")
+		}
 
 		deviceService := guh.NewDevice(config)
 		deviceService.Add(deviceClassID, deviceDescriptorID, device["deviceParams"].([]interface{}))
