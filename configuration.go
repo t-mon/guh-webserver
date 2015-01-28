@@ -63,5 +63,8 @@ func runConfiguration() (Config, guh.Config) {
 		config.StaticFolder = *staticFolderFlag
 	}
 
+	guhConfig.IP = config.GuhIP
+	guhConfig.Port = config.GuhPort
+
 	return config, guhConfig
 }
