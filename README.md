@@ -6,21 +6,33 @@
 
 To start the web server simply type
 
-    ./guh_rest
+    ./guh-webserver
 
-You may configure the process with the following `ENV` variables:
+You may configure the process with the following flags:
 
-`IP`: The IP of the web server (default `0.0.0.0`)
+`ip`: The IP of the web server (default `0.0.0.0`)
 
-`PORT`: The port of the web server (default `3000`)
+`port`: The port of the web server (default `3000`)
 
-`GUH_IP`: The IP of the guhd server (default `127.0.0.1`)
+`guh_ip`: The IP of the guhd server (default `127.0.0.1`)
 
-`GUH_PORT`: The port of the guhd server (default `1234`)
+`guh_port`: The port of the guhd server (default `1234`)
+
+`static_folder`: The folder containing the static files of guh-webinterface (default: `./public`)
+
+`conf_path`: A path pointing at a config file (default: `/etc/guh/guh-webserver.conf`)
 
 For example:
 
-    GUH_IP=10.0.0.11 GUH_PORT=12345 IP=127.0.0.1 PORT=80 ./guh_rest
+    ./guh-webserver
+
+Here is an example for `guh-webserver.conf`:
+
+    IP = "127.0.0.1"
+    Port = 3000
+    GuhIP = "192.168.0.3"
+    GuhPort = 1234
+    StaticFolder = "/Users/christoph/Desktop/guh-webinterface"
 
 ### License & Copyright
 
@@ -31,9 +43,9 @@ This software may be modified and distributed under the terms of the MIT license
 ### TODO
 
  - [ ] Properly handle deviceErrors etc. in responses
- - [ ] Convert ENV params to real command line params
-   - [ ] Params for guh-ip, guh-port, config-path, port
+ - [x] Convert ENV params to real command line params
+   - [x] Params for guh-ip, guh-port, config-path, port
  - [ ] Create a config file in etc (/etc/guh/guh-webserver.conf)
- - [ ] Serve static files from configurable directory (http://stackoverflow.com/a/14187941/641032)
+ - [x] Serve static files from configurable directory (http://stackoverflow.com/a/14187941/641032)
  - [ ] Refactor code to use something like "RegisterEndPoint()" to be able to autogenerate meta information (required params, relationship to guh core, etc.) about the API
 

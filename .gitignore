@@ -1,3 +1,4 @@
 /guh-webserver
-build/
-public/
+/webserver.conf
+/build/
+/public/

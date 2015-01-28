@@ -8,35 +8,32 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"github.com/go-martini/martini"
-	"github.com/guh/guh-libgo"
 	"github.com/martini-contrib/render"
 )
 
+var IPFlag = flag.String("ip", "", "The ip address of the webserver (default: 0.0.0.0)")
+var portFlag = flag.Int("port", 0, "The port of the webserver (default: 3000)")
+var guhIPFlag = flag.String("guh_ip", "", "The IP address of the guh daemon (default: 127.0.0.1)")
+var guhPortFlag = flag.Int("guh_port", 0, "The port of the guh daemon (default: 1234)")
+var staticFolderFlag = flag.String("static_folder", "", "The location of the folder containing the static files (default: ./public)")
+var confPathFlag = flag.String("conf_path", "/etc/guh/guh-webserver.conf", "The location of the config file (default: /etc/guh/guh-webserver.conf)")
+
 func main() {
-
-	var config guh.Config
-	if _, err := os.Stat("config.json"); os.IsNotExist(err) {
-		config = guh.Config{IP: os.Getenv("GUH_IP"), Port: os.Getenv("GUH_PORT")}
-	} else {
-		config = guh.LoadConfig("config.json")
-	}
-
+	// Prase the flag
 	flag.Parse()
 
-	fmt.Println("  guh_ip:", config.IP)
-	fmt.Println("guh_port:", config.Port)
+	config, guhConfig := runConfiguration()
 
 	m := martini.Classic()
+	m.Use(martini.Static("/Users/christoph/Desktop/guh-webinterface/build"))
 	m.Use(render.Renderer())
 
-	DefineBaseEndPoints(m, config)
-	DefineDeviceEndPoints(m, config)
-	DefineDeviceClassEndPoints(m, config)
-	DefineVendorEndPoints(m, config)
+	DefineBaseEndPoints(m, guhConfig)
+	DefineDeviceEndPoints(m, guhConfig)
+	DefineDeviceClassEndPoints(m, guhConfig)
+	DefineVendorEndPoints(m, guhConfig)
 
-	m.Run()
-
+	m.RunOnAddr(fmt.Sprintf("%v:%v", config.IP, config.Port))
 }
