@@ -21,7 +21,7 @@ var staticFolderFlag = flag.String("static_folder", "", "The location of the fol
 var confPathFlag = flag.String("conf_path", "/etc/guh/guh-webserver.conf", "The location of the config file (default: /etc/guh/guh-webserver.conf)")
 
 func main() {
-	// Prase the flag
+	// Parse the flag
 	flag.Parse()
 
 	config, guhConfig := runConfiguration()
@@ -34,6 +34,7 @@ func main() {
 	DefineDeviceEndPoints(m, guhConfig)
 	DefineDeviceClassEndPoints(m, guhConfig)
 	DefineVendorEndPoints(m, guhConfig)
+	DefineRuleEndPoints(m, guhConfig)
 
 	m.RunOnAddr(fmt.Sprintf("%v:%v", config.IP, config.Port))
 }
