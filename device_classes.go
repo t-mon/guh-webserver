@@ -23,7 +23,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		deviceClasses, err := deviceClass.All()
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, deviceClasses)
 		}
@@ -36,7 +36,11 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		foundDeviceClass, err := deviceClass.Find(params["id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			if err.Error() == guh.RecordNotFoundError {
+				r.JSON(404, make(map[string]string))
+			} else {
+				r.JSON(500, GenerateErrorMessage(err))
+			}
 		} else {
 			r.JSON(200, foundDeviceClass)
 		}
@@ -53,7 +57,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		discoveredDevices, err := deviceClass.Discover(params["device_class_id"], discoveryParams)
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, discoveredDevices["deviceDescriptors"])
 		}
@@ -66,7 +70,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		actionTypes, err := actionType.All(params["device_class_id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, actionTypes)
 		}
@@ -79,7 +83,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		stateTypes, err := stateType.All(params["device_class_id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, stateTypes)
 		}
