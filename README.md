@@ -54,11 +54,12 @@ This software may be modified and distributed under the terms of the MIT license
 
  - [x] get /core/introspect.json
    - [x] JSONRPC.Introspect
-   - [x] JSONRPC.Version
  - [x] get /core/version.json
+   - [x] JSONRPC.Version
  - [x] get /devices.json
- - [x] get /devices/:id.json
    - [x] Devices.GetConfiguredDevices
+ - [x] get /devices/:id.json
+   - [x] Devices.GetConfiguredDevices (filtered)
  - [x] delete /devices/:id.json
    - [x] Devices.RemoveConfiguredDevice
  - [x] post /devices.json
@@ -72,6 +73,7 @@ This software may be modified and distributed under the terms of the MIT license
  - [x] get /device_classes.json
    - [x] Devices.GetSupportedDevices
  - [x] get /device_classes/:id.json
+   - [x] Devices.GetSupportedDevices (filtered)
  - [x] get /device_classes/:device_class_id/action_types.json
    - [x] Devices.GetActionTypes
  - [x] get /device_classes/:device_class_id/state_types.json
@@ -93,8 +95,10 @@ This software may be modified and distributed under the terms of the MIT license
  - [x] get /vendors.json do
    - [x] Devices.GetSupportedVendors
  - [x] get /vendors/:id.json
+   - [x] Devices.GetSupportedVendors (filtered)
  - [x] get /vendor/:id/device_classes.json
- - [x] get /ws
+   - [x] Devices.GetSupportedDevices (filtered)
+ - [ ] get /ws
    - [ ] JSONRPC.SetNotificationStatus
 
 #### RPC
