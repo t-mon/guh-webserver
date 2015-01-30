@@ -42,9 +42,74 @@ This software may be modified and distributed under the terms of the MIT license
 
 ### TODO
 
- - [ ] Properly handle deviceErrors etc. in responses
+ - [ ] Refactor code and rename structs properly (Entity and EntityService)
+ - [x] Properly handle deviceErrors etc. in responses
  - [ ] Refactor code to use something like "RegisterEndPoint()" to be able to autogenerate meta information (required params, relationship to guh core, etc.) about the API
  - [x] Convert ENV params to real command line params
    - [x] Params for guh-ip, guh-port, config-path, port
  - [x] Serve static files from configurable directory (http://stackoverflow.com/a/14187941/641032)
 
+
+#### Endpoints
+
+ - [x] get /core/introspect.json
+   - [x] JSONRPC.Introspect
+   - [x] JSONRPC.Version
+ - [x] get /core/version.json
+ - [x] get /devices.json
+ - [x] get /devices/:id.json
+   - [x] Devices.GetConfiguredDevices
+ - [x] delete /devices/:id.json
+   - [x] Devices.RemoveConfiguredDevice
+ - [x] post /devices.json
+   - [x] Devices.AddConfiguredDevice
+   - [x] Devices.PairDevice
+ - [ ] post /devices/confirm_pairing.json
+   - [ ] Devices.ConfirmPairing
+ - [ ] get /devices/:device_id/actions.json
+ - [ ] get /devices/:device_id/actions/:id.json
+ - [ ] post /devices/:device_id/execute/:id.json
+ - [x] get /device_classes.json
+   - [x] Devices.GetSupportedDevices
+ - [x] get /device_classes/:id.json
+ - [x] get /device_classes/:device_class_id/action_types.json
+   - [x] Devices.GetActionTypes
+ - [x] get /device_classes/:device_class_id/state_types.json
+   - [x] Devices.GetStateTypes
+ - [x] get /device_classes/:id/discover.json
+   - [x] Devices.GetDiscoveredDevices
+ - [x] get /rules.json
+   - [x] Rules.GetRules
+ - [x] get /rules/:id.json
+   - [x] Rules.GetRuleDetails
+ - [x] post /rules.json
+   - [x] Rules.AddRule
+ - [ ] patch /rules/:id/disable.json
+   - [ ] Rules.DisableRule
+ - [ ] patch /rules/:id/enable.json
+   - [ ] Rules.EnableRule
+ - [ ] delete /rules/:id.json
+   - [ ] Rules.RemoveRule
+ - [x] get /vendors.json do
+   - [x] Devices.GetSupportedVendors
+ - [x] get /vendors/:id.json
+ - [x] get /vendor/:id/device_classes.json
+ - [x] get /ws
+   - [ ] JSONRPC.SetNotificationStatus
+
+#### RPC
+
+These RPCs are available but don't have a corresponding REST endpoint yet.
+
+ - [ ] Actions.ExecuteAction
+ - [ ] Actions.GetActionType
+ - [ ] Devices.GetEventTypes
+ - [ ] Devices.GetPluginConfiguration
+ - [ ] Devices.GetPlugins
+ - [ ] Devices.GetStateValue
+ - [ ] Devices.GetStateValues
+ - [ ] Devices.SetPluginConfiguration
+ - [ ] Events.GetEventType
+ - [ ] Logging.GetLogEntries
+ - [ ] Rules.FindRules
+ - [ ] States.GetStateType
