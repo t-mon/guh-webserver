@@ -1,6 +1,14 @@
+// Copyright (C) 2015 guh
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 package main
 
 import (
+	"encoding/json"
+	"net/http"
+
 	"github.com/go-martini/martini"
 	"github.com/guh/guh-libgo"
 	"github.com/martini-contrib/render"
@@ -15,7 +23,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		deviceClasses, err := deviceClass.All()
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, deviceClasses)
 		}
@@ -28,9 +36,30 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		foundDeviceClass, err := deviceClass.Find(params["id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			if err.Error() == guh.RecordNotFoundError {
+				r.JSON(404, make(map[string]string))
+			} else {
+				r.JSON(500, GenerateErrorMessage(err))
+			}
 		} else {
 			r.JSON(200, foundDeviceClass)
+		}
+	})
+
+	// Returns a list of all discovered devices
+	m.Get("/api/v1/device_classes/:device_class_id/discover.json", func(r render.Render, params martini.Params, request *http.Request) {
+
+		deviceClass := guh.NewDeviceClass(config)
+
+		var discoveryParams []interface{}
+		err := json.Unmarshal([]byte(request.FormValue("discovery_params")), &discoveryParams)
+
+		discoveredDevices, err := deviceClass.Discover(params["device_class_id"], discoveryParams)
+
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.JSON(200, discoveredDevices["deviceDescriptors"])
 		}
 	})
 
@@ -41,7 +70,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		actionTypes, err := actionType.All(params["device_class_id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, actionTypes)
 		}
@@ -54,7 +83,7 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		stateTypes, err := stateType.All(params["device_class_id"])
 
 		if err != nil {
-			r.JSON(500, err)
+			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, stateTypes)
 		}
