@@ -32,7 +32,7 @@ Here is an example for `guh-webserver.conf`:
     Port = 3000
     GuhIP = "192.168.0.3"
     GuhPort = 1234
-    StaticFolder = "/my/custom/webserver.conf"
+    StaticFolder = "/my/cusom/public"
 
 ### License & Copyright
 
