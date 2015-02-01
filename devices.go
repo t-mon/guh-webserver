@@ -104,6 +104,17 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		}
 	})
 
+	m.Get("/api/v1/devices/:id/states.json", func(r render.Render, params martini.Params) {
+		stateService := guh.NewStateService(config)
+		states, err := stateService.All(params["id"])
+
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.JSON(200, states)
+		}
+	})
+
 	// Returns a list of all discovered devices
 	m.Get("/api/v1/devices/discover.json", func(r render.Render, params martini.Params) {
 

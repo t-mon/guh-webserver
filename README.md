@@ -70,6 +70,10 @@ This software may be modified and distributed under the terms of the MIT license
  - [ ] get /devices/:device_id/actions.json
  - [ ] get /devices/:device_id/actions/:id.json
  - [ ] post /devices/:device_id/execute/:id.json
+ - [x] get /devices/:id/states.json
+   - [x] Devices.GetStateValues
+ - [ ] get /devices/:id/states/:id.json
+   - [ ] Devices.GetStateValue
  - [x] get /device_classes.json
    - [x] Devices.GetSupportedDevices
  - [x] get /device_classes/:id.json
@@ -110,8 +114,6 @@ These RPCs are available but don't have a corresponding REST endpoint yet.
  - [ ] Devices.GetEventTypes
  - [ ] Devices.GetPluginConfiguration
  - [ ] Devices.GetPlugins
- - [ ] Devices.GetStateValue
- - [ ] Devices.GetStateValues
  - [ ] Devices.SetPluginConfiguration
  - [ ] Events.GetEventType
  - [ ] Logging.GetLogEntries

@@ -59,7 +59,7 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 				r.JSON(500, GenerateErrorMessage(err))
 			}
 		} else {
-			r.JSON(200, make(map[string]string))
+			r.Status(204)
 		}
 	})
 
@@ -76,7 +76,7 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 				r.JSON(500, GenerateErrorMessage(err))
 			}
 		} else {
-			r.JSON(200, make(map[string]string))
+			r.Status(204)
 		}
 	})
 
@@ -120,7 +120,7 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 				r.JSON(500, GenerateErrorMessage(err))
 			}
 		} else {
-			r.JSON(200, make(map[string]string))
+			r.Status(204)
 		}
 	})
 

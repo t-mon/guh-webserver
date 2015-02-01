@@ -78,9 +78,9 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Lists all available state types of a device class
 	m.Get("/api/v1/device_classes/:device_class_id/state_types.json", func(r render.Render, params martini.Params) {
-		stateType := guh.NewStateType(config)
+		stateTypeService := guh.NewStateTypeService(config)
 
-		stateTypes, err := stateType.All(params["device_class_id"])
+		stateTypes, err := stateTypeService.All(params["device_class_id"])
 
 		if err != nil {
 			r.JSON(500, GenerateErrorMessage(err))
