@@ -19,8 +19,8 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Lists all available devices classes
 	m.Get("/api/v1/device_classes.json", func(r render.Render) {
-		deviceClass := guh.NewDeviceClass(config)
-		deviceClasses, err := deviceClass.All()
+		deviceClassService := guh.NewDeviceClassService(config)
+		deviceClasses, err := deviceClassService.All()
 
 		if err != nil {
 			r.JSON(500, GenerateErrorMessage(err))
@@ -31,9 +31,9 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Finds a specific device class identified by its ID
 	m.Get("/api/v1/device_classes/:id.json", func(r render.Render, params martini.Params) {
-		deviceClass := guh.NewDeviceClass(config)
+		deviceClassService := guh.NewDeviceClassService(config)
 
-		foundDeviceClass, err := deviceClass.Find(params["id"])
+		foundDeviceClass, err := deviceClassService.Find(params["id"])
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
@@ -49,12 +49,12 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	// Returns a list of all discovered devices
 	m.Get("/api/v1/device_classes/:device_class_id/discover.json", func(r render.Render, params martini.Params, request *http.Request) {
 
-		deviceClass := guh.NewDeviceClass(config)
+		deviceClassService := guh.NewDeviceClassService(config)
 
 		var discoveryParams []interface{}
 		err := json.Unmarshal([]byte(request.FormValue("discovery_params")), &discoveryParams)
 
-		discoveredDevices, err := deviceClass.Discover(params["device_class_id"], discoveryParams)
+		discoveredDevices, err := deviceClassService.Discover(params["device_class_id"], discoveryParams)
 
 		if err != nil {
 			r.JSON(500, GenerateErrorMessage(err))
