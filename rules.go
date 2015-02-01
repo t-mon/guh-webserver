@@ -7,7 +7,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/go-martini/martini"
@@ -53,8 +52,6 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 		err := ruleService.Enable(params["id"])
 
-		fmt.Println(" --> Whoop!")
-
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
 				r.JSON(404, make(map[string]string))
@@ -71,8 +68,6 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		ruleService := guh.NewRuleService(config)
 
 		err := ruleService.Disable(params["id"])
-
-		fmt.Println(" --> Whoop!")
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
@@ -97,9 +92,7 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		ruleService := guh.NewRuleService(config)
 
 		if err == nil {
-			fmt.Println("requestBody", requestBody)
 			rule := requestBody["rule"].(map[string]interface{})
-			fmt.Println("rule", rule)
 			newRuleID, err = ruleService.Add(rule)
 
 			if err == nil {
@@ -111,6 +104,23 @@ func DefineRuleEndPoints(m *martini.ClassicMartini, config guh.Config) {
 			r.JSON(500, GenerateErrorMessage(err))
 		} else {
 			r.JSON(200, newRule)
+		}
+	})
+
+	// Removes an existing rule permanently
+	m.Delete("/api/v1/rules/:id.json", func(r render.Render, params martini.Params) {
+		ruleService := guh.NewRuleService(config)
+
+		err := ruleService.Remove(params["id"])
+
+		if err != nil {
+			if err.Error() == guh.RecordNotFoundError {
+				r.JSON(404, make(map[string]string))
+			} else {
+				r.JSON(500, GenerateErrorMessage(err))
+			}
+		} else {
+			r.JSON(200, make(map[string]string))
 		}
 	})
 
