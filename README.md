@@ -83,7 +83,7 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.GetSupportedDevices (filtered)
  - [x] get /device_classes/:device_class_id/action_types.json
    - [x] Devices.GetActionTypes
-- [ ] get /device_classes/:device_class_id/action_types/:id.json
+ - [ ] get /device_classes/:device_class_id/action_types/:id.json
    - [ ] Actions.GetActionType
  - [x] get /device_classes/:device_class_id/state_types.json
    - [x] Devices.GetStateTypes
