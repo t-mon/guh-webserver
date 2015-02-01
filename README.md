@@ -86,10 +86,10 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Rules.GetRuleDetails
  - [x] post /rules.json
    - [x] Rules.AddRule
- - [ ] patch /rules/:id/disable.json
-   - [ ] Rules.DisableRule
- - [ ] patch /rules/:id/enable.json
-   - [ ] Rules.EnableRule
+ - [x] patch /rules/:id/disable.json
+   - [x] Rules.DisableRule
+ - [x] patch /rules/:id/enable.json
+   - [x] Rules.EnableRule
  - [ ] delete /rules/:id.json
    - [ ] Rules.RemoveRule
  - [x] get /vendors.json do
