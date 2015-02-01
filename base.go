@@ -13,7 +13,7 @@ import (
 
 func DefineBaseEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	m.Get("/api/v1/introspect.json", func(r render.Render) {
-		base := guh.NewDevice(config)
+		base := guh.NewBase(config)
 		introspect, err := base.Introspect()
 
 		if err != nil {

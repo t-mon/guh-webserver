@@ -20,8 +20,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Lists all available Devices
 	m.Get("/api/v1/devices.json", func(r render.Render) {
-		device := guh.NewDevice(config)
-		devices, err := device.All()
+		deviceService := guh.NewDeviceService(config)
+		devices, err := deviceService.All()
 
 		if err != nil {
 			r.JSON(500, GenerateErrorMessage(err))
@@ -32,8 +32,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Shows one specific device identified by its ID
 	m.Get("/api/v1/devices/:id.json", func(r render.Render, params martini.Params) {
-		device := guh.NewDevice(config)
-		foundDevice, err := device.Find(params["id"])
+		deviceService := guh.NewDeviceService(config)
+		foundDevice, err := deviceService.Find(params["id"])
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
@@ -51,7 +51,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	// devices support multiple conflicting createMethods
 	m.Post("/api/v1/devices.json", func(r render.Render, params martini.Params, request *http.Request) {
 
-		newDevice := guh.D{}
+		newDevice := guh.Device{}
 
 		decoder := json.NewDecoder(request.Body)
 		var requestBody map[string]interface{}
@@ -70,7 +70,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 				delete(device, "deviceDescriptorID")
 			}
 
-			deviceService := guh.NewDevice(config)
+			deviceService := guh.NewDeviceService(config)
 			newDeviceID := ""
 			newDeviceID, err = deviceService.Add(deviceClassID, deviceDescriptorID, device["deviceParams"].([]interface{}))
 
@@ -90,8 +90,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Removes a configured device identified by its ID
 	m.Delete("/api/v1/devices/:id.json", func(r render.Render, params martini.Params) {
-		device := guh.NewDevice(config)
-		_, err := device.Remove(params["id"])
+		deviceService := guh.NewDeviceService(config)
+		_, err := deviceService.Remove(params["id"])
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
