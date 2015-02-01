@@ -113,15 +113,20 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.GetSupportedVendors (filtered)
  - [x] get /vendor/:id/device_classes.json
    - [x] Devices.GetSupportedDevices (filtered)
+ - [ ] get /plugins.json
+   - [ ] Devices.GetPlugins
+ - [ ] get /plugins/:id.json
+   - [ ] Devices.GetPluginConfiguration
+ - [ ] put /devices/:id.json
+   - [ ] Devices.SetPluginConfiguration
+ - [ ] get /log.json
+   - [ ] Logging.GetLogEntries
  - [ ] get /ws
    - [ ] JSONRPC.SetNotificationStatus
+
 
 #### RPC
 
 These RPCs are available but don't have a corresponding REST endpoint yet.
 
- - [ ] Devices.GetPluginConfiguration
- - [ ] Devices.GetPlugins
- - [ ] Devices.SetPluginConfiguration
- - [ ] Logging.GetLogEntries
  - [ ] Rules.FindRules
