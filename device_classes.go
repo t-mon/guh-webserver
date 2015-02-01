@@ -76,6 +76,19 @@ func DefineDeviceClassEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		}
 	})
 
+	// Lists all available event types of a device class
+	m.Get("/api/v1/device_classes/:device_class_id/event_types.json", func(r render.Render, params martini.Params) {
+		eventTypeService := guh.NewEventTypeService(config)
+
+		eventTypes, err := eventTypeService.All(params["device_class_id"])
+
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.JSON(200, eventTypes)
+		}
+	})
+
 	// Lists all available state types of a device class
 	m.Get("/api/v1/device_classes/:device_class_id/state_types.json", func(r render.Render, params martini.Params) {
 		stateTypeService := guh.NewStateTypeService(config)

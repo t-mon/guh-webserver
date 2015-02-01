@@ -89,8 +89,8 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.GetStateTypes
  - [ ] get /device_classes/:device_class_id/state_types/:id.json
    - [ ] States.GetStateType
- - [ ] get /device_classes/:device_class_id/event_types.json
-   - [ ] Devices.GetEventTypes
+ - [x] get /device_classes/:device_class_id/event_types.json
+   - [x] Devices.GetEventTypes
  - [ ] get /device_classes/:device_class_id/event_types/:id.json
    - [ ] Events.GetEventType
  - [x] get /device_classes/:id/discover.json
