@@ -68,8 +68,11 @@ This software may be modified and distributed under the terms of the MIT license
  - [ ] post /devices/confirm_pairing.json
    - [ ] Devices.ConfirmPairing
  - [ ] get /devices/:device_id/actions.json
+   - [x] Devices.GetActionTypes
  - [ ] get /devices/:device_id/actions/:id.json
+   - [ ] Actions.GetActionType
  - [ ] post /devices/:device_id/execute/:id.json
+   - [ ] Actions.ExecuteAction
  - [x] get /devices/:id/states.json
    - [x] Devices.GetStateValues
  - [ ] get /devices/:id/states/:id.json
@@ -80,8 +83,16 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.GetSupportedDevices (filtered)
  - [x] get /device_classes/:device_class_id/action_types.json
    - [x] Devices.GetActionTypes
+- [ ] get /device_classes/:device_class_id/action_types/:id.json
+   - [ ] Actions.GetActionType
  - [x] get /device_classes/:device_class_id/state_types.json
    - [x] Devices.GetStateTypes
+ - [ ] get /device_classes/:device_class_id/state_types/:id.json
+   - [ ] States.GetStateType
+ - [ ] get /device_classes/:device_class_id/event_types.json
+   - [ ] Devices.GetEventTypes
+ - [ ] get /device_classes/:device_class_id/event_types/:id.json
+   - [ ] Events.GetEventType
  - [x] get /device_classes/:id/discover.json
    - [x] Devices.GetDiscoveredDevices
  - [x] get /rules.json
@@ -109,13 +120,8 @@ This software may be modified and distributed under the terms of the MIT license
 
 These RPCs are available but don't have a corresponding REST endpoint yet.
 
- - [ ] Actions.ExecuteAction
- - [ ] Actions.GetActionType
- - [ ] Devices.GetEventTypes
  - [ ] Devices.GetPluginConfiguration
  - [ ] Devices.GetPlugins
  - [ ] Devices.SetPluginConfiguration
- - [ ] Events.GetEventType
  - [ ] Logging.GetLogEntries
  - [ ] Rules.FindRules
- - [ ] States.GetStateType
