@@ -67,12 +67,8 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.PairDevice
  - [ ] post /devices/confirm_pairing.json
    - [ ] Devices.ConfirmPairing
- - [ ] get /devices/:device_id/actions.json
-   - [x] Devices.GetActionTypes
- - [ ] get /devices/:device_id/actions/:id.json
-   - [ ] Actions.GetActionType
- - [ ] post /devices/:device_id/execute/:id.json
-   - [ ] Actions.ExecuteAction
+ - [x] post /devices/:device_id/execute/:id.json
+   - [x] Actions.ExecuteAction
  - [x] get /devices/:id/states.json
    - [x] Devices.GetStateValues
  - [ ] get /devices/:id/states/:id.json

@@ -115,29 +115,38 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		}
 	})
 
-	// Returns a list of all discovered devices
-	m.Get("/api/v1/devices/discover.json", func(r render.Render, params martini.Params) {
-
-	})
-
-	m.Get("/api/v1/devices/pair.json", func(r render.Render, params martini.Params) {
-
-	})
-
 	m.Post("/api/v1/devices/confirm_paring.json", func(r render.Render, params martini.Params) {
 
 	})
 
-	m.Get("/api/v1/devices/:device_id/actions.json", func(r render.Render, params martini.Params) {
+	m.Post("/api/v1/devices/:device_id/actions/:id/execute.json", func(r render.Render, params martini.Params, request *http.Request) {
 
-	})
+		// Parse the request body
+		decoder := json.NewDecoder(request.Body)
+		var requestBody map[string]interface{}
+		err := decoder.Decode(&requestBody)
+		var actionParams []interface{}
+		if requestBody["params"] != nil {
+			actionParams = requestBody["params"].([]interface{})
+		}
 
-	m.Get("/api/v1/devices/:device_id/actions/:id/execute.json", func(r render.Render, params martini.Params) {
+		if err == nil {
+			actionTypeService := guh.NewActionTypeService(config)
+			response, err := actionTypeService.Execute(params["device_id"], params["id"], actionParams)
+			if err == nil {
+				if response != "DeviceErrorNoError" {
+					err = errors.New(response)
+				}
+			}
+		} else {
+			err = errors.New("Error parsing request body")
+		}
 
-	})
-
-	m.Get("/api/v1/devices/:device_id/states.json", func(r render.Render, params martini.Params) {
-
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.Status(204)
+		}
 	})
 
 }
