@@ -14,8 +14,6 @@ override_dh_auto_build:
 	
 	dh_auto_build	
 
-	# This works for armhf
-	#GOARCH=arm GOOS=linux GOARM=7 CGO_ENABLED=0 dh_auto_build 
 %:
 	dh $@ --buildsystem=golang --with=golang
 
