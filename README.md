@@ -67,17 +67,28 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Devices.PairDevice
  - [ ] post /devices/confirm_pairing.json
    - [ ] Devices.ConfirmPairing
- - [ ] get /devices/:device_id/actions.json
- - [ ] get /devices/:device_id/actions/:id.json
- - [ ] post /devices/:device_id/execute/:id.json
+ - [x] post /devices/:device_id/execute/:id.json
+   - [x] Actions.ExecuteAction
+ - [x] get /devices/:id/states.json
+   - [x] Devices.GetStateValues
+ - [ ] get /devices/:id/states/:id.json
+   - [ ] Devices.GetStateValue
  - [x] get /device_classes.json
    - [x] Devices.GetSupportedDevices
  - [x] get /device_classes/:id.json
    - [x] Devices.GetSupportedDevices (filtered)
  - [x] get /device_classes/:device_class_id/action_types.json
    - [x] Devices.GetActionTypes
+ - [ ] get /device_classes/:device_class_id/action_types/:id.json
+   - [ ] Actions.GetActionType
  - [x] get /device_classes/:device_class_id/state_types.json
    - [x] Devices.GetStateTypes
+ - [ ] get /device_classes/:device_class_id/state_types/:id.json
+   - [ ] States.GetStateType
+ - [x] get /device_classes/:device_class_id/event_types.json
+   - [x] Devices.GetEventTypes
+ - [ ] get /device_classes/:device_class_id/event_types/:id.json
+   - [ ] Events.GetEventType
  - [x] get /device_classes/:id/discover.json
    - [x] Devices.GetDiscoveredDevices
  - [x] get /rules.json
@@ -86,34 +97,32 @@ This software may be modified and distributed under the terms of the MIT license
    - [x] Rules.GetRuleDetails
  - [x] post /rules.json
    - [x] Rules.AddRule
- - [ ] patch /rules/:id/disable.json
-   - [ ] Rules.DisableRule
- - [ ] patch /rules/:id/enable.json
-   - [ ] Rules.EnableRule
- - [ ] delete /rules/:id.json
-   - [ ] Rules.RemoveRule
+ - [x] patch /rules/:id/disable.json
+   - [x] Rules.DisableRule
+ - [x] patch /rules/:id/enable.json
+   - [x] Rules.EnableRule
+ - [x] delete /rules/:id.json
+   - [x] Rules.RemoveRule
  - [x] get /vendors.json do
    - [x] Devices.GetSupportedVendors
  - [x] get /vendors/:id.json
    - [x] Devices.GetSupportedVendors (filtered)
  - [x] get /vendor/:id/device_classes.json
    - [x] Devices.GetSupportedDevices (filtered)
+ - [ ] get /plugins.json
+   - [ ] Devices.GetPlugins
+ - [ ] get /plugins/:id.json
+   - [ ] Devices.GetPluginConfiguration
+ - [ ] put /devices/:id.json
+   - [ ] Devices.SetPluginConfiguration
+ - [ ] get /log.json
+   - [ ] Logging.GetLogEntries
  - [ ] get /ws
    - [ ] JSONRPC.SetNotificationStatus
+
 
 #### RPC
 
 These RPCs are available but don't have a corresponding REST endpoint yet.
 
- - [ ] Actions.ExecuteAction
- - [ ] Actions.GetActionType
- - [ ] Devices.GetEventTypes
- - [ ] Devices.GetPluginConfiguration
- - [ ] Devices.GetPlugins
- - [ ] Devices.GetStateValue
- - [ ] Devices.GetStateValues
- - [ ] Devices.SetPluginConfiguration
- - [ ] Events.GetEventType
- - [ ] Logging.GetLogEntries
  - [ ] Rules.FindRules
- - [ ] States.GetStateType

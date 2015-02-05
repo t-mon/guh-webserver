@@ -20,8 +20,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Lists all available Devices
 	m.Get("/api/v1/devices.json", func(r render.Render) {
-		device := guh.NewDevice(config)
-		devices, err := device.All()
+		deviceService := guh.NewDeviceService(config)
+		devices, err := deviceService.All()
 
 		if err != nil {
 			r.JSON(500, GenerateErrorMessage(err))
@@ -32,8 +32,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Shows one specific device identified by its ID
 	m.Get("/api/v1/devices/:id.json", func(r render.Render, params martini.Params) {
-		device := guh.NewDevice(config)
-		foundDevice, err := device.Find(params["id"])
+		deviceService := guh.NewDeviceService(config)
+		foundDevice, err := deviceService.Find(params["id"])
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
@@ -51,7 +51,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 	// devices support multiple conflicting createMethods
 	m.Post("/api/v1/devices.json", func(r render.Render, params martini.Params, request *http.Request) {
 
-		newDevice := guh.D{}
+		newDevice := guh.Device{}
 
 		decoder := json.NewDecoder(request.Body)
 		var requestBody map[string]interface{}
@@ -70,7 +70,7 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 				delete(device, "deviceDescriptorID")
 			}
 
-			deviceService := guh.NewDevice(config)
+			deviceService := guh.NewDeviceService(config)
 			newDeviceID := ""
 			newDeviceID, err = deviceService.Add(deviceClassID, deviceDescriptorID, device["deviceParams"].([]interface{}))
 
@@ -90,8 +90,8 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Removes a configured device identified by its ID
 	m.Delete("/api/v1/devices/:id.json", func(r render.Render, params martini.Params) {
-		device := guh.NewDevice(config)
-		_, err := device.Remove(params["id"])
+		deviceService := guh.NewDeviceService(config)
+		_, err := deviceService.Remove(params["id"])
 
 		if err != nil {
 			if err.Error() == guh.RecordNotFoundError {
@@ -104,29 +104,49 @@ func DefineDeviceEndPoints(m *martini.ClassicMartini, config guh.Config) {
 		}
 	})
 
-	// Returns a list of all discovered devices
-	m.Get("/api/v1/devices/discover.json", func(r render.Render, params martini.Params) {
+	m.Get("/api/v1/devices/:id/states.json", func(r render.Render, params martini.Params) {
+		stateService := guh.NewStateService(config)
+		states, err := stateService.All(params["id"])
 
-	})
-
-	m.Get("/api/v1/devices/pair.json", func(r render.Render, params martini.Params) {
-
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.JSON(200, states)
+		}
 	})
 
 	m.Post("/api/v1/devices/confirm_paring.json", func(r render.Render, params martini.Params) {
 
 	})
 
-	m.Get("/api/v1/devices/:device_id/actions.json", func(r render.Render, params martini.Params) {
+	m.Post("/api/v1/devices/:device_id/actions/:id/execute.json", func(r render.Render, params martini.Params, request *http.Request) {
 
-	})
+		// Parse the request body
+		decoder := json.NewDecoder(request.Body)
+		var requestBody map[string]interface{}
+		err := decoder.Decode(&requestBody)
+		var actionParams []interface{}
+		if requestBody["params"] != nil {
+			actionParams = requestBody["params"].([]interface{})
+		}
 
-	m.Get("/api/v1/devices/:device_id/actions/:id/execute.json", func(r render.Render, params martini.Params) {
+		if err == nil {
+			actionTypeService := guh.NewActionTypeService(config)
+			response, err := actionTypeService.Execute(params["device_id"], params["id"], actionParams)
+			if err == nil {
+				if response != "DeviceErrorNoError" {
+					err = errors.New(response)
+				}
+			}
+		} else {
+			err = errors.New("Error parsing request body")
+		}
 
-	})
-
-	m.Get("/api/v1/devices/:device_id/states.json", func(r render.Render, params martini.Params) {
-
+		if err != nil {
+			r.JSON(500, GenerateErrorMessage(err))
+		} else {
+			r.Status(204)
+		}
 	})
 
 }

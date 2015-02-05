@@ -44,8 +44,8 @@ func DefineVendorEndPoints(m *martini.ClassicMartini, config guh.Config) {
 
 	// Gets all available device classes of a specific vendor identified by his ID
 	m.Get("/api/v1/vendors/:vendor_id/device_classes.json", func(r render.Render, params martini.Params) {
-		deviceClass := guh.NewDeviceClass(config)
-		deviceClasses, err := deviceClass.AllByVendor(params["vendor_id"])
+		deviceClassService := guh.NewDeviceClassService(config)
+		deviceClasses, err := deviceClassService.AllByVendor(params["vendor_id"])
 
 		if err != nil {
 			r.JSON(500, err)
