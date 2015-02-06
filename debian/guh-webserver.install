@@ -1,0 +1,2 @@
+data/config/* /etc/guh
+data/initscript/* /etc/init.d

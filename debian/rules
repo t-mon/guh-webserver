@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+export DH_OPTIONS
+
+export DH_GOPKG := github.com/guh/guh-webserver
+
+export GOPATH := $(CURDIR)/obj-$(DEB_HOST_GNU_CPU)-$(DEB_HOST_GNU_SYSTEM)
+
+override_dh_auto_build:
+	#go env
+	go get github.com/go-martini/martini
+	go get github.com/martini-contrib/render
+	go get github.com/BurntSushi/toml
+	go get github.com/guh/guh-libgo
+	
+	dh_auto_build	
+
+%:
+	dh $@ --buildsystem=golang --with=golang
+
+override_dh_install:
+	dh_install --fail-missing
+
