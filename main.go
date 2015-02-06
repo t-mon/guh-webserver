@@ -27,7 +27,7 @@ func main() {
 	config, guhConfig := runConfiguration()
 
 	m := martini.Classic()
-	m.Use(martini.Static("/Users/christoph/Desktop/guh-webinterface/build"))
+	m.Use(martini.Static(config.StaticFolder))
 	m.Use(render.Renderer())
 
 	DefineBaseEndPoints(m, guhConfig)

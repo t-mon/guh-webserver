@@ -68,6 +68,11 @@ func runConfiguration() (Config, guh.Config) {
 		config.StaticFolder = *staticFolderFlag
 	}
 
+	fmt.Println("[guh-webserver]   ConfigFile:", *confPathFlag)
+	fmt.Println("[guh-webserver]           IP:", config.IP)
+	fmt.Println("[guh-webserver]         Port:", config.Port)
+	fmt.Println("[guh-webserver] StaticFolder:", config.StaticFolder)
+
 	guhConfig.IP = config.GuhIP
 	guhConfig.Port = config.GuhPort
 
