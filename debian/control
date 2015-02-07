@@ -9,7 +9,6 @@ Homepage: https://github.com/guh/guh-webserver
 Package: guh-webserver
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, guh-webinterface
-Recommends: guh (= ${binary:Version}) 
 Description: A REST-API webserver for the guh-webinterface
  The guh-webserver translates the guh JSONRPC-API into a REST-API and 
  and provides the guh-webinterface. 
