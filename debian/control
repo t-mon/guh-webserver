@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9), golang-go, dh-golang
 Homepage: https://github.com/guh/guh-webserver
 
 Package: guh-webserver
-Architecture: all
+Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, guh-webinterface
 Recommends: guh (= ${binary:Version}) 
 Description: A REST-API webserver for the guh-webinterface
