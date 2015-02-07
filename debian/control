@@ -11,7 +11,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, 
   ${misc:Depends}, 
   guh-webinterface (>= 0.1.0),
-  guh
+  guh (>= 0.2.0)
 Description: A REST-API webserver for the guh-webinterface
  The guh-webserver translates the guh JSONRPC-API into a REST-API and 
  and provides the guh-webinterface. 
