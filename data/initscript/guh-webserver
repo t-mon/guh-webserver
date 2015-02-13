@@ -9,6 +9,32 @@
 # Description:       The guh-webserver provides a REST API for guh and the guh-webinterface in the network.
 ### END INIT INFO
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                                                     #
+#  Copyright (C) 2015 guh                                                             #
+#                                                                                     #
+#  This file is part of guh-webserver                                                 #
+#                                                                                     #
+#  Permission is hereby granted, free of charge, to any person obtaining a copy       #
+#  of this software and associated documentation files (the "Software"), to deal      #
+#  in the Software without restriction, including without limitation the rights       #
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell          #
+#  copies of the Software, and to permit persons to whom the Software is              #
+#  furnished to do so, subject to the following conditions:                           #
+#                                                                                     #
+#  The above copyright notice and this permission notice shall be included in all     #
+#  copies or substantial portions of the Software.                                    #
+#                                                                                     #
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR         #
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,           #
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE        #
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER             #
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,      #
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE      #
+#  SOFTWARE.                                                                          #
+#                                                                                     #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # Author: Simon Stürz <simon.stuerz@guh.guru>
 # Do NOT "set -e"
 
@@ -28,10 +54,6 @@ SCRIPTNAME=/etc/init.d/$NAME
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
-
-# Define LSB log_* functions.
-# Depend on lsb-base (>= 3.2-14) to ensure that this file is present
-# and status_of_proc is working.
 . /lib/lsb/init-functions
 
 #
@@ -48,9 +70,6 @@ do_start()
 	start-stop-daemon --start --quiet --background --pidfile $PIDFILE --exec $DAEMON -- \
 		$DAEMON_ARGS \
 		|| return 2
-	# Add code here, if necessary, that waits for the process to be ready
-	# to handle requests from services started subsequently which depend
-	# on this one.  As a last resort, sleep for some time.
 }
 
 #
@@ -66,12 +85,6 @@ do_stop()
 	start-stop-daemon --stop --quiet --retry=TERM/5/KILL/5 --pidfile $PIDFILE --name $NAME
 	RETVAL="$?"
 	[ "$RETVAL" = 2 ] && return 2
-	# Wait for children to finish too if this is a daemon that forks
-	# and if the daemon is only ever run from this initscript.
-	# If the above conditions are not satisfied then add some other code
-	# that waits for the process to drop all resources that could be
-	# needed by services started subsequently.  A last resort is to
-	# sleep for some time.
 	start-stop-daemon --stop --quiet --oknodo --retry=0/5/KILL/5 --exec $DAEMON
 	[ "$?" = 2 ] && return 2
 	# Many daemons don't delete their pidfiles when they exit.
